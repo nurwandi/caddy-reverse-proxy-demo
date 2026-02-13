@@ -1,0 +1,62 @@
+# Caddy Configuration - Base Foundation
+# Adjustable for multiple apps/vhosts
+
+# Main site - adjust domain as needed
+broken-code.online {
+    # Reverse proxy to Docker container
+    reverse_proxy localhost:8080
+
+    # Automatic HTTPS via Let's Encrypt
+    # (Caddy handles this automatically for public domains)
+
+    # Optional: Add response headers
+    header {
+        # Security headers
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "DENY"
+        X-XSS-Protection "1; mode=block"
+        Referrer-Policy "strict-origin-when-cross-origin"
+    }
+
+    # Optional: Enable gzip compression
+    encode gzip
+
+    # Optional: Logging
+    log {
+        output file /var/log/caddy/broken-code.log
+        format json
+    }
+}
+
+# Example: Multiple apps/vhosts (uncomment and adjust as needed)
+# app1.broken-code.online {
+#     reverse_proxy localhost:8081
+#     encode gzip
+# }
+
+# app2.broken-code.online {
+#     reverse_proxy localhost:8082
+#     encode gzip
+# }
+
+# Example: Path-based routing (alternative approach)
+# broken-code.online {
+#     # Root path
+#     reverse_proxy localhost:8080
+#
+#     # App-specific paths
+#     handle /app1* {
+#         reverse_proxy localhost:8081
+#     }
+#
+#     handle /app2* {
+#         reverse_proxy localhost:8082
+#     }
+# }
+
+# Example: Local development with self-signed cert
+# localhost {
+#     reverse_proxy localhost:8080
+#     tls internal
+# }

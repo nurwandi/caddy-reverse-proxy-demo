@@ -1,0 +1,246 @@
+body {
+  margin: 0;
+  overflow-x: hidden; /* Hide horizontal scrollbar but allow content to overflow */
+  cursor: wait; /* Annoying cursor everywhere */
+}
+
+.bad-container {
+  min-height: 200vh; /* Too much scrolling */
+  width: 120vw; /* Horizontal scroll forced */
+  font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+.loading-screen {
+  background: blue;
+  color: white;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: monospace;
+}
+
+.blink {
+  animation: blinker 0.1s linear infinite;
+}
+
+@keyframes blinker {
+  50% { opacity: 0; }
+}
+
+.scroller {
+  background: red;
+  color: yellow;
+  font-size: 2rem;
+  font-weight: bold;
+  border-bottom: 5px solid black;
+  padding: 10px;
+}
+
+.broken-header {
+  text-align: right;
+  padding: 50px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"><rect width="10" height="10" fill="white"/><circle cx="5" cy="5" r="4" fill="black"/></svg>');
+  border: 10px double purple;
+  transform: rotate(2deg);
+  margin-left: -50px;
+}
+
+.ad-banner {
+  background: lime;
+  border: 5px dashed red;
+  padding: 20px;
+  margin: 50px;
+  text-align: center;
+  animation: shake 0.5s infinite;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+.content-mess {
+  position: relative;
+  width: 300px;
+  margin: 0 auto;
+}
+
+.stretched-img {
+  width: 100%;
+  height: 600px; /* Distorted aspect ratio */
+  filter: invert(100%);
+}
+
+.overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #333; /* Dark text on dark inverted image */
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.tiny-text {
+  font-size: 4px;
+  color: #555;
+  margin-bottom: -20px; /* Overlap */
+  z-index: 10;
+  position: relative;
+}
+
+.impossible-btn {
+  padding: 20px 40px;
+  background: red;
+  color: white;
+  border: 10px outset darkred;
+  font-weight: bold;
+  cursor: help;
+  z-index: 9999;
+}
+
+.hit-counter {
+  font-family: 'Courier New', Courier, monospace;
+  background: black;
+  color: lime;
+  padding: 10px;
+  width: 200px;
+  margin: 100px auto;
+  border: 5px solid grey;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.bad-form {
+  background: orange;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transform: skewX(20deg);
+  width: 50%;
+  margin: 0 auto;
+}
+
+.footer-stuck {
+  position: fixed;
+  bottom: 100px; /* Not actually at the bottom */
+  left: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.8);
+  color: white;
+  text-align: center;
+  font-size: 2rem;
+  pointer-events: auto; /* Can't click links */
+}
+
+/* Force unstyled scrollbars in webkit */
+::-webkit-scrollbar {
+  width: 50px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+/* Mobile tap prompt - only show on mobile */
+.mobile-tap-prompt {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  body {
+    transform: rotate(180deg); /* Upside down on mobile */
+    overflow-x: scroll; /* Allow side scrolling */
+    overflow-y: auto; /* Allow vertical scroll */
+  }
+
+  .bad-container {
+    width: 200vw; /* Even wider on mobile */
+    overflow: visible; /* Override hidden to allow scroll */
+  }
+
+  .broken-header h1 span {
+    display: block; /* Break words unnecessarily */
+  }
+
+  /* Keep button text readable on mobile */
+  .impossible-btn {
+    transform: rotate(180deg);
+  }
+
+  /* Keep only link readable, copyright stays upside down */
+  .footer-stuck a {
+    display: inline-block;
+    transform: rotate(180deg);
+  }
+
+  /* Gigantic scrollbar on mobile */
+  ::-webkit-scrollbar {
+    width: 100px;
+  }
+
+  /* Annoying spinning tap prompt on mobile */
+  .mobile-tap-prompt {
+    display: block;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(180deg); /* Counter-rotate body rotation */
+    font-size: 2rem;
+    font-weight: bold;
+    color: red;
+    text-shadow:
+      2px 2px 0 yellow,
+      -2px -2px 0 cyan,
+      2px -2px 0 lime,
+      -2px 2px 0 magenta;
+    z-index: 99999;
+    pointer-events: none;
+    animation: spinBlink 2s linear infinite;
+    font-family: 'Comic Sans MS', cursive;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  @keyframes spinBlink {
+    0% {
+      transform: translate(-50%, -50%) rotate(180deg) scale(1);
+      opacity: 1;
+    }
+    25% {
+      transform: translate(-50%, -50%) rotate(270deg) scale(1.2);
+      opacity: 0.5;
+    }
+    50% {
+      transform: translate(-50%, -50%) rotate(360deg) scale(1);
+      opacity: 1;
+    }
+    75% {
+      transform: translate(-50%, -50%) rotate(450deg) scale(0.8);
+      opacity: 0.5;
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(540deg) scale(1);
+      opacity: 1;
+    }
+  }
+}

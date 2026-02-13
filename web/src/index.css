@@ -1,0 +1,8 @@
+:root {
+  /* Reset nothing. Chaos reigns. */
+}
+/* Ensure the body takes up the full width/height to allow for our bad positioning */
+html, body {
+  width: 100%;
+  height: 100%;
+}
