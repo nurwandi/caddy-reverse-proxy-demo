@@ -3,6 +3,16 @@
 
 # Main site - adjust domain as needed
 broken-code.online {
+
+    # Rate limit
+    rate_limit {
+        zone test {
+            key {remote_host}
+            events 5           # Just 5 requests
+            window 10s         # Per 10 secs
+        }
+    }
+    
     # Reverse proxy to Docker container
     reverse_proxy localhost:8080
 
